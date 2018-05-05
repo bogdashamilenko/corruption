@@ -1,2 +1,2 @@
 # corruption
-Represents the chart of corruption to human development index
+Represents the interactive scatter chart of corruption to human development index.
