@@ -1,0 +1,25 @@
+library(ggplot2)
+library(data.table)
+df <- fread('C:/Users/Bogdan/Desktop/Economist_Assignment_Data.csv',drop=1)
+pointsToLabel <- c("Russia", "Venezuela", "Iraq", "Myanmar", "Sudan",
+                   "Afghanistan", "Congo", "Greece", "Argentina", "Brazil",
+                   "India", "Italy", "China", "South Africa", "Spane",
+                   "Botswana", "Cape Verde", "Bhutan", "Rwanda", "France",
+                   "United States", "Germany", "Britain", "Barbados", "Norway", "Japan",
+                   "New Zealand", "Singapore")
+
+pl1 <- ggplot(df, aes( x = CPI, y = HDI))
+
+pl2<- pl1 + geom_point(aes(color = Region), size = 3, shape = 1) + ggtitle('Corruption and Human Development')
+
+pl3 <- pl2 +geom_smooth(aes(group = 1),method = 'lm',
+                        formula = y ~ log(x),
+                        se = FALSE,
+                        color = 'red')+
+  scale_x_continuous(name= 'Corruption Perceptions Index (10 - least corrupt)',breaks = 1:10) +
+  scale_y_continuous( name = 'Human Development Index, 2011, (1=best)')
+pl4 <- pl3 + geom_text(aes(label= Country), color = 'grey20',
+                       data = subset(df, Country %in% pointsToLabel),check_overlap = TRUE)
+pl4 <- ggplotly(pl4)
+
+print(pl4)
