@@ -1,4 +1,4 @@
-llibrary(dplyr)
+library(dplyr)
 library(ggplot2)
 library(plotly)
 
@@ -36,7 +36,9 @@ clear.df<- arrange(clear.df,salary,desc(OBP),desc(AB))
 
 pl1<-ggplot(clear.df,aes(OBP, AB)) + geom_point(aes(fill=cut(clear.df$salary,4)), size= 2) + xlab("On Base Percentage") +
   ylab("At bat")
-gpl<-ggplotly(pl1) 
+pl2 <- pl1 + scale_fill_discrete(name="Amount of salary",
+                                 labels=c("Control", "Treatment 1", "Treatment 2", 'bla'))
+gpl<-ggplotly(pl2) 
 
 print(gpl)
 #head(clear.df)
