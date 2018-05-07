@@ -34,14 +34,15 @@ clear.df <- subset(clear.df, AB > factorB)
 clear.df <- subset(clear.df, OBP > factorA)
 clear.df<- arrange(clear.df,salary,desc(OBP),desc(AB))
 
-pl1<-ggplot(clear.df,aes(OBP, AB)) + geom_point(aes(fill=cut(clear.df$salary,4)), size= 2) + xlab("On Base Percentage") +
+pl1<-ggplot(clear.df,aes(OBP, AB)) + geom_point(aes(color = salary)) + xlab("On Base Percentage") +
   ylab("At bat")
 pl2 <- pl1 + scale_fill_discrete(name="Amount of salary",
                                  labels=c("Control", "Treatment 1", "Treatment 2", 'bla'))
-gpl<-ggplotly(pl2) 
+pl3 <- pl2 + scale_color_gradient(low = '#02d0ff', high = '#161616')
+gpl<-ggplotly(pl3) 
 
 print(gpl)
 #head(clear.df)
 
-print(format(sal2, scientific=F))
+#print(format(sal2, scientific=F))
 
